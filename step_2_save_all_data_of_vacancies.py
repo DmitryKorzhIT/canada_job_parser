@@ -85,12 +85,8 @@ for link in links:
         apply_btn = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "applynowbutton")))
         apply_btn.click()
     except Exception:
-        try:
-            apply_btn = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "applynowbutton")))
-            apply_btn.click()
-        except Exception:
-            print(f"{datetime.now()}:   Apply button is not found. Exception error #C8X1. Error! ")
-            continue
+        print(f"{datetime.now()}:   Apply button is not found. Exception error #C8X1. Error! ")
+        continue
 
     # Add link to the dictionary
     try:
