@@ -6,6 +6,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # Path to the ChromeDriver executable
 chrome_driver_path = './chromedriver/chromedriver'  # Assuming chromedriver is in the virtual environment
@@ -68,22 +70,24 @@ with open(vacancies_data_file_path, "w") as file:
 # Load each url
 for link in links:
     driver.get(link)
-    time.sleep(5)
 
     # Determine dictionary with vacancies_data
-    vacancies_data = dict()
+    vacancies_data = {
+        "link": "",
+        "email": "",
+        "title": "",
+        "company": "",
+        "date": ""
+    }
 
     # Click apply button
     try:
-        apply_btn = driver.find_element(By.ID, "applynowbutton")
+        apply_btn = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "applynowbutton")))
         apply_btn.click()
-        time.sleep(6)
     except Exception:
-        time.sleep(4)
         try:
-            apply_btn = driver.find_element(By.ID, "applynowbutton")
+            apply_btn = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "applynowbutton")))
             apply_btn.click()
-            time.sleep(6)
         except Exception:
             print(f"{datetime.now()}:   Apply button is not found. Exception error #C8X1. Error! ")
             continue
@@ -97,7 +101,8 @@ for link in links:
 
     # Add email address to the dictionary
     try:
-        apply_info = driver.find_element(By.ID, "applynow")
+        time.sleep(1)
+        apply_info = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "applynow")))
         hyperlink_elements = apply_info.find_elements(By.TAG_NAME, "a")
         for i in range(len(hyperlink_elements)):
             link = hyperlink_elements[i].get_attribute("href")
