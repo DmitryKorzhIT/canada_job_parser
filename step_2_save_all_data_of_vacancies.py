@@ -4,6 +4,7 @@ import pandas as pd
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -12,10 +13,18 @@ from selenium.webdriver.support import expected_conditions as EC
 # Path to the ChromeDriver executable
 chrome_driver_path = './chromedriver/chromedriver'  # Assuming chromedriver is in the virtual environment
 
+# Set up Chrome options to run headless (without opening the browser)
+chrome_options = Options()
+chrome_options.add_argument("--headless")  # Run in headless mode
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--disable-gpu")  # applicable to windows os only but still, you can include it
+chrome_options.add_argument("--window-size=1920x1080")
+
 # Initialize ChromeDriver
 chrome_service = Service(chrome_driver_path)
 chrome_service.start()
-driver = webdriver.Chrome(service=chrome_service)
+driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 driver.maximize_window()
 
 # Main code
