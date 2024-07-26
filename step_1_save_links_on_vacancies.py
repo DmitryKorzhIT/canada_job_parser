@@ -10,18 +10,18 @@ from selenium.webdriver.common.by import By
 # Path to the ChromeDriver executable
 chrome_driver_path = './chromedriver/chromedriver'  # Assuming chromedriver is in the virtual environment
 
-# Set up Chrome options to run headless (without opening the browser)
-chrome_options = Options()
-chrome_options.add_argument("--headless")  # Run in headless mode
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--disable-gpu")  # applicable to windows os only but still, you can include it
-chrome_options.add_argument("--window-size=1920x1080")
+# # Set up Chrome options to run headless (without opening the browser)
+# chrome_options = Options()
+# chrome_options.add_argument("--headless")  # Run in headless mode
+# chrome_options.add_argument("--no-sandbox")
+# chrome_options.add_argument("--disable-dev-shm-usage")
+# chrome_options.add_argument("--disable-gpu")  # applicable to windows os only but still, you can include it
+# chrome_options.add_argument("--window-size=1920x1080")
 
 # Initialize ChromeDriver
 chrome_service = Service(chrome_driver_path)
 chrome_service.start()
-driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+driver = webdriver.Chrome(service=chrome_service)
 driver.maximize_window()
 
 # URL to load
