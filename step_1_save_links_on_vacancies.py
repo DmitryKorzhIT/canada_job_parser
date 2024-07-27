@@ -56,6 +56,11 @@ location.clear()
 location.send_keys(SEARCH_LOCATION)
 time.sleep(2)
 
+# Press "last 30 days" checkbox
+last_30_days = driver.find_element(By.ID, 'sf_last30days')
+last_30_days.click()
+time.sleep(2)
+
 # Press search button
 search_btn = driver.find_element(By.ID, "searchButton")
 search_btn.click()
